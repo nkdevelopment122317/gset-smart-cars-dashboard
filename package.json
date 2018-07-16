@@ -1,0 +1,11 @@
+{
+  "name": "gset-smart-car-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard that displays the results of data analysis upon data gathered from the GSET 2018 Smart Cars Research Project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikhil Kolachalama",
+  "license": "ISC"
+}
