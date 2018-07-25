@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var middleware = require("../middleware");
-var Announcement = require("../models/reports");
+var Report = require("../models/report");
+var Intersection = require("../models/intersection");
 var request = require("request");
 
 router.get("/", function(req, res) {
@@ -15,7 +15,9 @@ router.get("/dashboard", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-
+            res.render("dashboard", {intersections: foundIntersections});
         }
     });
 });
+
+module.exports = router;

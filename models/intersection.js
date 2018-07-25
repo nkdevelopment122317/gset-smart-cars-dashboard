@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var cluborgSchema = new mongoose.Schema({
+var intersectionSchema = new mongoose.Schema({
    name: String,
    description: String,
    location: String,
@@ -18,4 +18,4 @@ var cluborgSchema = new mongoose.Schema({
 
 //DO NOT PLUGIN PASSPORT TO THIS SCHEMA. THAT CAUSED THE DUPLICATE KEY ERROR!!!!!!!
 
-module.exports = mongoose.model("Intersection", cluborgSchema);
+module.exports = mongoose.model("Intersection", intersectionSchema);

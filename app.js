@@ -8,7 +8,8 @@ var User = require('./models/user');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 
-var PORT = process.env.PORT || 3000;
+// var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
 var intersectionRoutes = require('./routes/intersections');
 var reportRoutes = require('./routes/reports');
@@ -17,7 +18,7 @@ var apiRoutes = require('./routes/api');
 
 mongoose.Promise = global.Promise;
 var databaseUri =  "mongodb://traffic-guy:remote-locking123@ds139331.mlab.com:39331/gset-smart-cars-dashboard" || "mongodb://localhost/gset-smart-cars-dashboard";
-mongoose.connect(databaseUri, {useMongoClient: true})
+mongoose.connect(databaseUri, {useNewUrlParser: true})
         .then(() => console.log(`Database connected at ${databaseUri}`))
         .catch(err => console.log(`Database connection error: ${err.message}`));
 
@@ -39,9 +40,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 app.use(function(req, res, next) {
-    res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     next();

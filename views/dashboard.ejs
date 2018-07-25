@@ -1,0 +1,65 @@
+<% include ./partials/header %>
+
+<div class="content-container" id="dashboard-container">
+    <h1 class="dashboard-header">Administrator Dashboard</h1>
+    <ul class="nav nav-tabs nav-justified dashboard-tabs">
+        <li role="presentation" class="active" data-tab="presentations"><a href="#">Favorite Presentations</a></li>
+        <li role="presentation" data-tab="announcements"><a href="#">Announcements</a></li>
+        <li role="presentation" data-tab="clubs"><a href="#">Clubs</a></li>
+    </ul>
+
+    <div class="tab-content" data-tab="reports">
+        <!-- <a href="/schools/<%= currentUser.school %>/presentations" role="button" class="material-button" id="see-more">See All Presentations <i class="fas fa-arrow-circle-right"></i></a> -->
+
+        <div class="row">
+            <% presentations.forEach(function(presentation) { %>
+                <% if (presentation.favorite) { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="thumbnail">
+                            <img class="cluborg-image" src="<%= presentation.image %>">
+                            <div class="caption">
+                                <div class="caption-top">
+                                    <h3><%= presentation.name %></h3>
+                                    <% if (presentation.favorite) { %>
+                                        <i class="favorite favorited fas fa-star" data-pres-id="<%= presentation._id %>"></i>
+                                    <% } else { %>
+                                        <i class="favorite far fa-star" data-pres-id="<%= presentation._id %>"></i>
+                                    <% } %>
+                                </div>
+
+                                <p class="pres-description"><%= presentation.description %></p>
+
+                                <!-- <a href="/schools/<%= currentUser.school %>/presentations/<%= presentation._id %>" class="more-info">More Info</a> -->
+                                <div class="thumbnail-button-group">
+                                    <a href="/schools/<%= currentUser.school %>/presentations/<%= presentation._id %>/play" title="Play Presentation" class="btn btn-default" role="button"><i class="fas fa-play"></i></a> <!-- <a href="/schools/<%= currentUser.school %>/presentations/<%= presentation._id %>" class="btn btn-default" role="button"><i class="fas fa-info-circle"></i></a> --> <a href="/schools/<%= currentUser.school %>/presentations/<%= presentation._id %>/edit" class="btn btn-default" role="button" title="Edit Presentation"><i class="fas fa-edit"></i></a> <form class="delete-icon" action="/schools/<%= currentUser.school %>/presentations/<%= presentation._id %>?_method=DELETE" method="POST"> <button type="submit" class="btn btn-default" role="button" title="Delete Presentation"><i class="fas fa-trash-alt"></i></button></form>
+                                </div>
+
+                                <% if (!presentation.linkAllClubs) { %>
+                                    <% presentation.cluborgs.forEach(function(cluborg) { %>
+                                        <p class="pres-cluborg-info"><a href="/schools/<%= currentUser.school %>/cluborgs/<%= cluborg._id %>"><%= cluborg.name %></a></p>
+                                    <% }); %>
+                                <% } else { %>
+                                    <p class="pres-cluborg-info" id="all-cluborgs-message"><a href="/schools/<%= currentUser.school %>/cluborgs">All Clubs and Activities</a></p>
+                                <% } %>
+
+                            </div>
+                            <p>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+            <% }); %>
+            <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <a href="/schools/<%= currentUser.school %>/presentations" role="button" class="btn btn-default btn-lg see-more" id="see-more">See All Presentations <i class="fas fa-arrow-circle-right"></i></a>
+            </div> -->
+        </div>
+
+
+    </div>
+
+    <div class="tab-content no-display" data-tab="data-analysis">
+
+    </div>
+</div>
+
+<% include ./partials/footer %>
